@@ -1638,6 +1638,7 @@ n":[]},"4481163":{"name":null,"id":4481163,"children":[]},"3564223":{"name":null
 </mobile>
 </image>
 <node name="scene_1" pt="76" pt_bear="120.57455013047"/>
+<!-- added --><node name="scene_2" pt="142" pt_bear="300.57455013047"/>
 </scene>
 <scene name="scene_68" pano_id="4482135" id="4482135" menu_fov="0" level="L" title="68" level_start="0" tour_start="1" total_links="4" thumburl="https://img.gothru.org/1024/tours/6576/panos/4482135.tiles/thumb.jpg?save=optimize" lat="39.946847161442" lng="-75.16550454277" heading="0">
 <view hlookat="" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="91" limitview="auto"/>
@@ -3607,6 +3608,7 @@ n":[]},"4481163":{"name":null,"id":4481163,"children":[]},"3564223":{"name":null
 </image>
 <node name="scene_1" pt="110" pt_bear="24.581872654037"/>
 <node name="scene_2" pt="149" pt_bear="211.41097608217"/>
+<node name="scene_3" pt="67" pt_bear="121.41097608217"/>
 </scene>
 <scene name="scene_149" pano_id="4483637" id="4483637" menu_fov="0" level="V1" title="149" level_start="0" tour_start="1" total_links="4" thumburl="https://img.gothru.org/1024/tours/6576/panos/4483637.tiles/thumb.jpg?save=optimize" lat="39.946574807432" lng="-75.165843870661" heading="0">
 <view hlookat="" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="91" limitview="auto"/>
