@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>    
+    <script src="https://rawgit.com/chenzlabs/aframe/fix-oculus-gearvr-controller-dist/dist/aframe-master.min.js"></script>
+    <script src="oculus-touch-controls-hack.js"></script>
+    <script src="arrow-key-rotation.js"></script>
+    <script src="tour-scene.js"></script>
+  </head>
+<body>
+
+<!-- FIXME -->  
+<script src="tour-xml.js"></script>
+  
+<a-scene background="color:#3cf"
+         debug
+         raycaster="far: 100; objects: [link];" cursor="rayOrigin: mouse">
+  <a-entity tour-scene></a-entity>
+  
+  <a-entity id="player">
+    <a-entity id="hmd" camera look-controls arrow-key-rotation cursor="fuse:false"></a-entity>
+    <a-entity id="left-hand" laser-controls="hand:left"></a-entity>
+    <a-entity id="right-hand" laser-controls="hand:right"></a-entity>
+  </a-entity>
+</a-scene>
+  
+<script>
+  function setTourFromHash() {
+    var tourTitle = window.location.hash.substring(1) || "74"; // Commonwealth Plaza
+    document.querySelector('[tour-scene]').setAttribute('tour-scene', 'title', tourTitle);
+  }
+  
+  window.onhashchange = setTourFromHash;
+  
+  setTourFromHash();
+</script>  
+  
+  </body>
+</html>
