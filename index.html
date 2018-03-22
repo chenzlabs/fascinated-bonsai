@@ -4,6 +4,7 @@
     <script src="https://rawgit.com/chenzlabs/aframe/fix-oculus-gearvr-controller-dist/dist/aframe-master.min.js"></script>
     <script src="oculus-touch-controls-hack.js"></script>
     <script src="arrow-key-rotation.js"></script>
+    <script src="enter-clicks-nearest-link.js"></script>
     <script src="tour-scene.js"></script>
   </head>
 <body>
@@ -17,7 +18,9 @@
   <a-entity tour-scene></a-entity>
   
   <a-entity id="player">
-    <a-entity id="hmd" camera look-controls arrow-key-rotation cursor="fuse:false"></a-entity>
+    <a-entity id="hmd" 
+              camera look-controls arrow-key-rotation enter-clicks-nearest-link
+              cursor="fuse:false"></a-entity>
     <a-entity id="left-hand" laser-controls="hand:left"></a-entity>
     <a-entity id="right-hand" laser-controls="hand:right"></a-entity>
   </a-entity>
