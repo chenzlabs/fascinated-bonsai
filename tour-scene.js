@@ -68,7 +68,14 @@ AFRAME.registerComponent('tour-scene', {
     nodeholder.setAttribute('rotation', '0 ' + (360 - menu_fov) + ' 0');
     
     var npot = this.data.npot;
-    
+
+    // free the previous textures
+    ['left','front','right','back','up','down'].map(function(which) {
+      var plane = imagebox.querySelector('.' + which);
+      plane.setAttribute('material', { src: '' });
+    });
+
+    // assign the new textures    
     setTimeout(function() {
       ['left','front','right','back','up','down'].map(function(which) {
         var plane = imagebox.querySelector('.' + which);

@@ -1,6 +1,7 @@
 AFRAME.registerComponent('enter-clicks-nearest-link', {
   schema: {
     enabled: {default: true},
+    alsoUpArrow: {default:false}
   },
   init: function () {
     //this.onKeyDown = this.onKeyDown.bind(this);
@@ -16,6 +17,8 @@ AFRAME.registerComponent('enter-clicks-nearest-link', {
   },
   onKeyUp: function (evt) {
     switch (evt.keyCode) {
+      case 38: // make forward arrow do it?
+        if (!this.data.alsoUpArrow) { break; }
       case 13: 
         if (!this.data.enabled) { return; }
         var links = this.el.sceneEl.querySelectorAll('[link]');
