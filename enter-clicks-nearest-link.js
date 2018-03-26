@@ -32,11 +32,11 @@ AFRAME.registerComponent('enter-clicks-nearest-link', {
             links[i].object3D.getWorldPosition(tempPos);
             tempPos.sub(camWorldPos).normalize();            
             var thisdot = camWorldDir.dot(tempPos);
-            console.log(i, ' (', links[i].components.link.data.href, ') ', thisdot); 
+//            console.log(i, ' (', links[i].components.link.data.href, ') ', thisdot); 
             if (thisdot > dot) {
               dot = thisdot;
               nearest = links[i];
-              console.log('... nearest');
+//              console.log('... nearest');
             }
           }
           if (nearest) { nearest.components.link.navigate(); }
