@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>    
+    <!-- broken raycasting in master... script src="https://rawgit.com/aframevr/aframe/1e1db28/dist/aframe-master.min.js"></script -->
     <script src="https://rawgit.com/chenzlabs/aframe/fix-oculus-gearvr-controller-dist/dist/aframe-master.min.js"></script>
     <script src="oculus-touch-controls-hack.js"></script>
     <script src="arrow-key-rotation.js"></script>
     <script src="enter-clicks-nearest-link.js"></script>
     <script src="tour-scene.js"></script>
+    <script src="teleprompter.js"></script>
+    <script src="tour-script.js"></script>
   </head>
 <body>
 
@@ -15,27 +18,69 @@
 <a-scene background="color:#3cf"
          debug
          raycaster="far: 100; objects: [link];" cursor="rayOrigin: mouse">
-  <a-entity tour-scene></a-entity>
+  <a-entity tour-scene>
+    <a-box id="tour-scene-distractor" 
+           scale="100 100 100"
+           material="side:double;shader:flat;color:gray">
+      <a-animation attribute="material.opacity" from="1" to="0" delay="1000" dur="3000"></a-animation>
+    </a-box>
+  </a-entity>
   
   <a-entity id="player">
     <a-entity id="hmd" 
-              camera look-controls arrow-key-rotation enter-clicks-nearest-link
-              cursor="fuse:false"></a-entity>
+              camera look-controls 
+              arrow-key-rotation="dx:0" 
+              enter-clicks-nearest-link="alsoUpArrow:true"
+              cursor="fuse:false">
+      <!-- no way to preserve trailing newline, so use sentinel -->
+      <a-entity id="hud"
+              teleprompter="interval:7000"
+              position="0 -1 -2" 
+              text="align:center;width:3;wrapCount:20;color:cyan">
+      </a-entity>
+    </a-entity>
     <a-entity id="left-hand" laser-controls="hand:left"></a-entity>
     <a-entity id="right-hand" laser-controls="hand:right"></a-entity>
   </a-entity>
 </a-scene>
   
 <script>
-  function setTourFromHash() {
-    var tourTitle = window.location.hash.substring(1) || "74"; // Commonwealth Plaza
-    document.querySelector('[tour-scene]').setAttribute('tour-scene', 'title', tourTitle);
+  var teleprompter = document.querySelector('[teleprompter]');
+  var distractor = document.querySelector('#tour-scene-distractor');
+  var distractorAnimation = document.querySelector('#tour-scene-distractor a-animation');
+
+  var visited = {};
+    
+  function showDistractor() {
+    distractorAnimation.stop();
+    distractor.setAttribute('material', 'opacity', 1);
+  }
+    
+  function startDistractorAnimation() {
+    showDistractor();
+    distractorAnimation.start();
   }
   
-  window.onhashchange = setTourFromHash;
+  function continueTourFromHash() {
+    teleprompter.setAttribute('teleprompter', 'script', '');
+    setTourFromHash();
+  }  
+  
+  function setTourFromHash() { 
+    showDistractor();
+    var tourTitle = window.location.hash.substring(1) || '73';    
+    var script = showScriptFromStory(tourTitle, visited);
+    console.log(tourTitle + '\n' + JSON.stringify(visited) + '\n' + script);
+    teleprompter.setAttribute('teleprompter', 'script', script);
+    visited[tourTitle] = (visited[tourTitle] || 0) + 1;
+    document.querySelector('[tour-scene]').setAttribute('tour-scene', 'title', tourTitle);
+    startDistractorAnimation();
+  }
+  window.onhashchange = continueTourFromHash;
   
   setTourFromHash();
 </script>  
   
   </body>
 </html>
+'

@@ -38,7 +38,7 @@ AFRAME.registerComponent('arrow-key-rotation', {
     if (!this.data.enabled) { return; }
     // With latest master, it is recommended to manipulate object3D rotation directly.
     var rotation = this.el.object3D.rotation;
-    // FIX: with A-Frame 0.8.x, need to modify pitchObject of look-controls, if present.
+    // FIX: with A-Frame 0.8.x, need to modify pitchObject and yawObject of look-controls, if present.
     var lookControls = this.el.components['look-controls'];
     if (lookControls) { rotation = lookControls.pitchObject.rotation; }
     if (!rotation) { return; }

@@ -1,6 +1,7 @@
 AFRAME.registerComponent('enter-clicks-nearest-link', {
   schema: {
     enabled: {default: true},
+    alsoUpArrow: {default:false}
   },
   init: function () {
     //this.onKeyDown = this.onKeyDown.bind(this);
@@ -16,6 +17,8 @@ AFRAME.registerComponent('enter-clicks-nearest-link', {
   },
   onKeyUp: function (evt) {
     switch (evt.keyCode) {
+      case 38: // make forward arrow do it?
+        if (!this.data.alsoUpArrow) { break; }
       case 13: 
         if (!this.data.enabled) { return; }
         var links = this.el.sceneEl.querySelectorAll('[link]');
@@ -29,11 +32,11 @@ AFRAME.registerComponent('enter-clicks-nearest-link', {
             links[i].object3D.getWorldPosition(tempPos);
             tempPos.sub(camWorldPos).normalize();            
             var thisdot = camWorldDir.dot(tempPos);
-            console.log(i, ' (', links[i].components.link.data.href, ') ', thisdot); 
+//            console.log(i, ' (', links[i].components.link.data.href, ') ', thisdot); 
             if (thisdot > dot) {
               dot = thisdot;
               nearest = links[i];
-              console.log('... nearest');
+//              console.log('... nearest');
             }
           }
           if (nearest) { nearest.components.link.navigate(); }
