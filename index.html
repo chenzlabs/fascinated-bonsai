@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>    
-    <script src="https://rawgit.com/aframevr/aframe/1e1db28/dist/aframe-master.min.js"></script>
+    <!-- broken raycasting in master... script src="https://rawgit.com/aframevr/aframe/1e1db28/dist/aframe-master.min.js"></script -->
+    <script src="https://rawgit.com/chenzlabs/aframe/fix-oculus-gearvr-controller-dist/dist/aframe-master.min.js"></script>
     <script src="oculus-touch-controls-hack.js"></script>
     <script src="arrow-key-rotation.js"></script>
     <script src="enter-clicks-nearest-link.js"></script>
@@ -32,13 +33,9 @@
               cursor="fuse:false">
       <!-- no way to preserve trailing newline, so use sentinel -->
       <a-entity id="hud"
-              teleprompter="script:
-Take a virtual tour of the Kimmel Center!
-Select numbered points to navigate.
-Enjoy!
-<<EOF"
+              teleprompter="interval:7000"
               position="0 -1 -2" 
-              text="align:center;width:3;wrapCount:20;color:black">
+              text="align:center;width:3;wrapCount:20;color:yellow">
       </a-entity>
     </a-entity>
     <a-entity id="left-hand" laser-controls="hand:left"></a-entity>
@@ -50,10 +47,16 @@ Enjoy!
   var teleprompter = document.querySelector('[teleprompter]');
   var distractor = document.querySelector('#tour-scene-distractor');
   var distractorAnimation = document.querySelector('#tour-scene-distractor a-animation');
-  
-  function startDistractorAnimation() {
+
+  var visited = {};
+    
+  function showDistractor() {
     distractorAnimation.stop();
     distractor.setAttribute('material', 'opacity', 1);
+  }
+    
+  function startDistractorAnimation() {
+    showDistractor();
     distractorAnimation.start();
   }
   
@@ -62,10 +65,118 @@ Enjoy!
     setTourFromHash();
   }  
   
+  function showScriptFromStory(tourTitle, visited) {
+    if (tourTitle == '73') { // at the doors outside
+      if (!visited[tourTitle]) {
+        return `I can't wait to see the Kimmel Center!
+(Select numbered points to navigate, or use arrow keys to face one and press ENTER or UP.)
+<<EOF`
+      } else
+      if (!visited['72']) { // outside by the street       
+        return `I hope my ticket is out there...
+<<EOF`
+      } else {
+        return `I walk inside to explore the Kimmel Center.
+<<EOF`
+      }
+    }
+
+    if (tourTitle == '72') { // outside by the street
+      if (!visited[tourTitle]) {        
+        return `Whew! I put my ticket in my pocket.
+<<EOF`
+      }
+    }
+        
+    if (tourTitle == '43') { // in the entryway
+      if (!visited['72']) { // outside by the street       
+        return `Uh oh, did I drop my ticket outside?  I better go check.
+<<EOF`
+      } else {
+        return `Beautiful.  But how do I get on stage at Verizon Hall?
+<<EOF`     
+      }
+    }
+
+    if (tourTitle == '74') { // Commonwealth Plaza
+      if (!visited[tourTitle]) {        
+        return `Up ahead I see Verizon Hall near the stairs.
+<<EOF`
+      }
+    }
+    
+    if (tourTitle == '68') {
+      if (!visited[tourTitle]) {        
+        return `Verizon Hall looks closed, but maybe they will let me go in.
+<<EOF`
+      }
+    }
+        
+    if (tourTitle == '66') {
+      if (!visited[tourTitle]) {        
+        return `I thank the staff for letting me look inside Verizon Hall.
+<<EOF`
+      }
+    }
+
+    if (tourTitle == '58' || tourTitle == '60') {
+      if (!visited['58'] && !visited['60']) {        
+        return `I always dreamed of being on the Kimmel stage.
+<<EOF`
+      } else {
+        return `Cool.  But how do I watch from those seats up there?
+Maybe I need to check upstairs...
+<<EOF`
+      }
+    }
+            
+    if (tourTitle == '59') {
+      if (!visited[tourTitle]) {        
+        return `I bet my parents dreamed of watching me here too. 
+<<EOF`
+      }
+    }
+            
+    if (tourTitle == '82') {
+      if (!visited[tourTitle]) {        
+        return `Cozy!  This side door is closed though. 
+<<EOF`
+      }
+    }
+            
+    if (tourTitle == '85') {
+      if (!visited[tourTitle]) {        
+        return `This must be where you walk out. 
+<<EOF`
+      }
+    }
+            
+    if (tourTitle == '141') {
+      if (!visited[tourTitle]) {        
+        return `Let's look across the audience from dead center. 
+<<EOF`
+      }
+    }
+            
+    if (tourTitle == '86') {
+      if (!visited[tourTitle]) {        
+        return `That was great.  Let's go out the other side.
+<<EOF`
+      }
+    }
+            
+    return '';
+  }
+  
   function setTourFromHash() { 
-    startDistractorAnimation();
-    var tourTitle = window.location.hash.substring(1) || "74"; // Commonwealth Plaza
+    showDistractor();
+    var tourTitle = window.location.hash.substring(1) || '73';    
+    var script = showScriptFromStory(tourTitle, visited);
+    console.log(tourTitle + '\n' + JSON.stringify(visited) + '\n' + script);
+    teleprompter.setAttribute('teleprompter', 'script', script);
+    visited[tourTitle] = (visited[tourTitle] || 0) + 1;
     document.querySelector('[tour-scene]').setAttribute('tour-scene', 'title', tourTitle);
+    startDistractorAnimation();
   }
   window.onhashchange = continueTourFromHash;
   
@@ -74,3 +185,4 @@ Enjoy!
   
   </body>
 </html>
+'
