@@ -93,7 +93,7 @@ AFRAME.registerComponent('tour-scene', {
       nodeholder.insertAdjacentHTML('beforeEnd',
 '<a-entity class="node" rotation="0 -' + node.getAttribute('pt_bear') 
 + ' 0"><a-text align="center" position="0 -6 -12" wrap-count="15" rotation="-90 0 0" value="' + node.getAttribute('pt') 
-+ '"></a-text><a-entity position="0 -6 -12" rotation="-90 0 0" link="backgroundColor:green;href:#' + node.getAttribute('pt') 
++ '"></a-text><a-entity position="0 -6 -12" rotation="-90 0 0" link="borderColor:black;backgroundColor:black;href:#' + node.getAttribute('pt') 
 + ';title:."></a-entity></a-entity>');
     });
   }
