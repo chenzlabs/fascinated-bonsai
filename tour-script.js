@@ -16,7 +16,7 @@
 
     if (tourTitle == '72') { // outside by the street
       if (!visited[tourTitle]) {        
-        return `Whew! I put my ticket in my pocket.
+        return `There it is! I grab my ticket and put it in my pocket.
 Let's head back in.
 <<EOF`
       }
@@ -57,44 +57,52 @@ Let's head back in.
       if (!visited['51'] && !visited['47']) {        
         return `I always dreamed of being on the Kimmel stage.
 <<EOF`
-      } else {
-        return `Cool.  But how do I watch from those seats up there?
-Maybe I need to check upstairs...
-<<EOF`
       }
     }
-            
+
     if (tourTitle == '59') {
       if (!visited[tourTitle]) {        
         return `I bet my parents dreamed of watching me here too. 
 <<EOF`
       }
     }
-            
-    if (tourTitle == '82') {
-      if (!visited[tourTitle]) {        
+
+    if (tourTitle == '58' || tourTitle == '60') {
+      if (visited['59']) {        
+        return `Cool.  But how do I see from those seats up under the organ pipes?
+Maybe I need to check upstairs...
+<<EOF`
+      }
+    }
+                    
+    if (tourTitle == '82' || tourTitle == '89') {
+      if (!visited['82'] && !visited['89']) {        
         return `Cozy!  This side door is closed though. 
 <<EOF`
       }
     }
             
-    if (tourTitle == '85') {
-      if (!visited[tourTitle]) {        
+    if (tourTitle == '85' || tourTitle == '86') {
+      if (!visited['85'] && !visited['86']) {        
         return `This must be where you walk out. 
+<<EOF`
+      } else 
+      if (visited['163']) {        
+        return `That was great.  Let's go out the other side.
 <<EOF`
       }
     }
             
-    if (tourTitle == '141') {
-      if (!visited[tourTitle]) {        
+    if (tourTitle == '141' || tourTitle == '161') {
+      if (!visited['141'] && !visited['161']) {        
         return `Let's look across the audience from dead center. 
 <<EOF`
       }
     }
-            
-    if (tourTitle == '86') {
+
+    if (tourTitle == '163') {
       if (!visited[tourTitle]) {        
-        return `That was great.  Let's go out the other side.
+        return `That's a pretty cool view of both the stage and the audience!
 <<EOF`
       }
     }
