@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>    
-    <script src="https://rawgit.com/aframevr/aframe/1e1db28/dist/aframe-master.min.js"></script>
+    <!-- script src="https://rawgit.com/aframevr/aframe/1e1db28/dist/aframe-master.min.js"></script -->
+    <script src="https://rawgit.com/chenzlabs/aframe/simple-fix-for-gearvr-touch-dist/dist/aframe-master.min.js"></script>
     <script src="oculus-touch-controls-hack.js"></script>
     <script src="arrow-key-rotation.js"></script>
     <script src="enter-clicks-nearest-link.js"></script>
@@ -33,7 +34,7 @@
               cursor="rayOrigin:mouse;fuse:false">
       <a-entity id="hud"
               teleprompter="interval:7000"
-              position="0 -1 -2" 
+              position="0 -0.75 -2" 
               text="align:center;width:3;wrapCount:20;color:cyan">
       </a-entity>
     </a-entity>
