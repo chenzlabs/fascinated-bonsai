@@ -16,6 +16,11 @@
     <script src="tour-script.js"></script>
     <script src="teleprompter.js"></script>
     <script src="arrow-key-rotation.js"></script>
+    
+    <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
+    <style>
+      .rs-base { display: none; }
+    </style>
   </head>
 <body>
 
@@ -41,7 +46,11 @@
       <a-entity id="hud"
               teleprompter="interval:7000"
               position="0 -0.75 -2" 
-              text="align:center;width:3;wrapCount:20;color:cyan">
+              text="align:center;width:2;wrapCount:30;color:cyan">
+      </a-entity>
+      <a-entity id="fps"
+              position="0 1 -2"
+              fps-counter>
       </a-entity>
     </a-entity>
     
@@ -58,12 +67,12 @@
   // that appear in the same location,
   // if laser-controls is used when not in VR
   
-  function addLaserControlsInVR() {
+  function inVR() {
     document.querySelector('#left-hand').setAttribute('laser-controls', 'hand', 'left');
     document.querySelector('#right-hand').setAttribute('laser-controls', 'hand', 'right');
   }
   
-  document.querySelector('a-scene').addEventListener('enter-vr', addLaserControlsInVR);  
+  document.querySelector('a-scene').addEventListener('enter-vr', inVR);  
   
   var teleprompter = document.querySelector('[teleprompter]');
   var distractor = document.querySelector('#tour-scene-distractor');
@@ -104,4 +113,3 @@
   
   </body>
 </html>
-'
